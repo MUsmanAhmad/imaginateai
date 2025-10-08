@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Libretto Pic</title>
+  <style>
+    :root {
+      --primary: #212121;
+      --primary-dark: #161616;
+      --secondary: #8e44ad;
+      --dark: #121212;
+      --light: #bdc3c7;
+      --gray: #7f8c8d;
+      --success: #34c759;
+      --error: #ff3737;
+      --bg: #ffffff;
+      --text: #111111;
+      --button-bg: #222;
+      --button-text: #fff;
+      --content-primary: #ffffff;
+      --content-secondary: #c5c9d9;
+      --accent-electric: hsla(221, 98.8%, 66.9%, 1);
+      --accent-purple: hsla(291, 46.6%, 45.5%, 1);
+      --accent-pink: #DB519E;
+      --accent-violet: #B14BF4;
+      --accent-blue: #6E7BFC;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    /* Background */
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-dark));
+      background-size: 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 20px;
+      color: var(--content-primary);
+    }
+
+    header h1 {
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 800;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 16px;
+      color: var(--content-secondary);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Contact Form */
+    form {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 16px;
+      padding: 25px;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      margin-bottom: 30px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    form button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    form button:hover {
+      background: var(--secondary);
+    }
+
+    /* FAQ Cards */
+    .card {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .card p {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.4s ease;
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .card.active p {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: var(--content-secondary);
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+  <div id="particles-js"></div>
+
+  <header>
+    <h1>Contact Libretto Pic</h1>
+    <p>We’re Here to Help – Reach out anytime</p>
+  </header>
+
+  <div class="container">
+    <!-- Contact Form -->
+    <form id="contactForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <!-- FAQ Section -->
+    <div class="card">
+      <h2>How can I get support?</h2>
+      <p>You can reach us anytime through this form or by emailing <strong>support@librettopic.com</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h2>How fast will you reply?</h2>
+      <p>We typically respond within 24–48 hours, depending on the volume of requests.</p>
+    </div>
+
+    <div class="card">
+      <h2>Can I request features?</h2>
+      <p>Yes! We welcome your feedback and ideas. Share them in your message.</p>
+    </div>
+
+    <div class="card">
+      <h2>Is support free?</h2>
+      <p>Yes, all customer support from Libretto Pic is free of charge.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Libretto Pic. All rights reserved. <br>
+    <a href="Privacy Policy.html">Privacy Policy</a> | 
+    <a href="Terms of Service.html">Terms of Service</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        card.classList.toggle("active");
+      });
+    });
+
+    // Particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70 },
+        color: { value: "#ffffff" },
+        opacity: { value: 0.4 },
+        size: { value: 3 },
+        line_linked: { enable: true, color: "#ffffff", opacity: 0.2 },
+        move: { enable: true, speed: 1 }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } }
+      }
+    });
+
+    // Mailto with pre-filled data
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      const subject = encodeURIComponent(`Message from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+
+      window.location.href = `mailto:support@librettopic.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+
+</html>

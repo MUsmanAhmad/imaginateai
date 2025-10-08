@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Libretto Pic</title>
+  <style>
+    :root{
+      --primary:#212121;
+      --primary-dark:#161616;
+      --secondary:#8e44ad;
+      --accent-purple:#B14BF4;
+      --accent-blue:#6E7BFC;
+      --content-primary:#ffffff;
+      --content-secondary:#c5c9d9;
+      --bg:#ffffff;
+      --text:#111111;
+      --glass: rgba(255,255,255,0.06);
+      --card-shadow: 0 8px 30px rgba(13,13,13,0.18);
+      --radius:14px;
+      --max-width:1100px;
+    }
+
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Plus Jakarta Sans', Inter, system-ui, Arial;
+      color:var(--text);
+      background:var(--bg);
+      overflow-x:hidden;
+      opacity:0;
+      transition:opacity .5s ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    body.loaded{opacity:1}
+
+    /* animated gradient background (brand) */
+    .bg-gradient{
+      position:fixed; inset:0; z-index:-3;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-dark));
+      background-size:400% 400%;
+      animation: gradientShift 16s linear infinite;
+    }
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    /* particles container */
+    #particles-js{position:fixed; inset:0; z-index:-2; pointer-events:none}
+
+    /* page layout */
+    .wrap{
+      max-width:var(--max-width);
+      margin: 36px auto;
+      padding: 28px;
+    }
+
+    header {
+      text-align:center;
+      color:var(--content-primary);
+      padding-top:42px;
+      margin-bottom:10px;
+    }
+    header h1{
+      margin:0;
+      font-size:clamp(26px,5vw,42px);
+      line-height:1.03;
+      letter-spacing:-0.6px;
+      font-weight:800;
+      color:#fff;
+      text-shadow:0 6px 18px rgba(0,0,0,0.35);
+    }
+    header p{
+      margin:10px 0 0;
+      color:var(--content-secondary);
+      font-size:15px;
+      max-width:900px;
+      margin-inline:auto;
+    }
+
+    /* intro section */
+    .intro{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:24px;
+      align-items:center;
+      margin-top:28px;
+    }
+    @media(max-width:920px){ .intro{ grid-template-columns: 1fr; } }
+
+    .intro-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--card-shadow);
+      color:#fff;
+      position:relative;
+      overflow:visible;
+    }
+    .intro-card h2{
+      margin:0 0 8px;
+      font-size:20px;
+      color:var(--content-primary);
+    }
+    .intro-card p{ margin:0; color:var(--content-secondary); line-height:1.6; font-size:15px }
+
+    /* floating illustration panel */
+    .illus-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      min-height:220px;
+    }
+    .illus {
+      width:320px;
+      height:220px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: var(--card-shadow);
+      position:relative;
+      overflow:visible;
+    }
+    .illus .svg{
+      width:70%;
+      height:auto;
+      transform: translateY(0);
+      transition: transform .8s cubic-bezier(.2,.9,.2,1);
+    }
+
+    /* small floating decorative shapes */
+    .float-shape{
+      position:absolute;
+      filter:drop-shadow(0 10px 30px rgba(0,0,0,0.2));
+      opacity:.95;
+    }
+    .s1{ top: -18px; right: -14px; width:72px; transform: rotate(-16deg); }
+    .s2{ bottom: -16px; left: -20px; width:58px; transform: rotate(8deg); }
+    .s3{ top: 8px; left: -26px; width:46px; transform: rotate(36deg); }
+
+    /* mission/vision cards (expandable) */
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:28px;
+    }
+    @media(max-width:760px){ .grid-2{ grid-template-columns:1fr } }
+
+    .card{
+      border-radius:12px;
+      padding:18px;
+      background:linear-gradient(135deg,var(--accent-purple),var(--accent-blue));
+      color:#fff;
+      box-shadow:var(--card-shadow);
+      cursor:pointer;
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.28) }
+    .card h3{ margin:0; font-size:16px; font-weight:700 }
+    .card p{ margin:10px 0 0; color:rgba(255,255,255,0.94); line-height:1.6; font-size:14px; max-height:0; overflow:hidden; opacity:0; transition:all .36s ease }
+    .card.active p{ max-height:400px; opacity:1 }
+
+    /* journey timeline */
+    .timeline{
+      margin-top:36px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .step{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      opacity:0;
+      transform:translateY(26px);
+      transition: all .7s cubic-bezier(.2,.9,.2,1);
+    }
+    .step.visible{ opacity:1; transform:translateY(0) }
+    .step .num{
+      min-width:60px;
+      height:60px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    }
+    .step .content{
+      background:var(--glass);
+      padding:16px;
+      border-radius:12px;
+      color:#fff;
+      box-shadow:var(--card-shadow);
+      flex:1;
+    }
+    .step .content h4{ margin:0 0 6px; font-size:16px; color:var(--content-primary) }
+    .step .content p{ margin:0; color:var(--content-secondary); font-size:14px; line-height:1.6 }
+
+    /* CTA */
+    .cta{
+      margin:40px 0 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .btn-cta{
+      background: linear-gradient(90deg,var(--accent-purple),var(--accent-blue));
+      color:#fff;
+      padding:14px 26px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:16px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.22);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn-cta:hover{ transform:translateY(-5px); box-shadow:0 18px 50px rgba(0,0,0,0.28) }
+
+    /* footer */
+    footer{
+      margin:36px auto 80px;
+      max-width:var(--max-width);
+      color:var(--content-secondary);
+      text-align:center;
+      font-size:14px;
+    }
+    footer a{ color:var(--accent-blue); text-decoration:none; font-weight:700; margin:0 8px }
+    footer a:hover{ text-decoration:underline }
+
+    /* small screens tweak */
+    @media(max-width:520px){
+      .illus { width:100%; height:180px }
+      .intro{ gap:16px }
+      header h1{ font-size:28px }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div id="particles-js" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <header>
+      <h1>About Libretto Pic — Creativity Without Borders</h1>
+      <p>We make AI image creation simple and accessible — even if you don't speak English. Describe your idea in any language and watch it become art.</p>
+    </header>
+
+    <!-- Intro with floating illustration -->
+    <section class="intro" aria-labelledby="about-heading">
+      <div class="intro-card" id="about-heading">
+        <h2>Who we are</h2>
+        <p><strong>Libretto Pic</strong> is an AI-powered image studio built for creators who don’t want language to be a barrier. Whether you write prompts in Urdu, Spanish, Pashto, or emoji — our system understands and turns those prompts into high-quality visuals. We focus on clarity, accessibility, and speed.</p>
+        <p style="margin-top:12px;">We’re small, focused, and obsessed with user experience. No jargon. No gatekeeping. Just tools that help you create.</p>
+      </div>
+
+      <div class="illus-wrap" aria-hidden="false">
+        <div class="illus" role="img" aria-label="Floating illustration representing creativity">
+          <!-- Simple illustrative SVG (floating shapes) -->
+          <svg class="svg" viewBox="0 0 512 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#B14BF4"/>
+                <stop offset="1" stop-color="#6E7BFC"/>
+              </linearGradient>
+            </defs>
+            <rect rx="18" x="10" y="10" width="492" height="300" fill="url(#g1)" opacity="0.12"/>
+            <g transform="translate(56,36)">
+              <circle cx="72" cy="52" r="36" fill="#fff" opacity="0.16"/>
+              <rect x="140" y="24" width="176" height="112" rx="14" fill="#fff" opacity="0.14"/>
+              <path d="M18 180 q60 -80 120 0 q60 -80 120 0" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="6" stroke-linecap="round"/>
+            </g>
+          </svg>
+
+          <!-- floating tiny shapes -->
+          <svg class="float-shape s1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="28" fill="#B14BF4"/>
+          </svg>
+          <svg class="float-shape s2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="52" height="52" rx="10" fill="#6E7BFC"/>
+          </svg>
+          <svg class="float-shape s3" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32 q24 -20 48 0 q-24 20 -48 0" fill="#B14BF4"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="grid-2" aria-label="Mission and Vision">
+      <article class="card" id="mcard">
+        <h3>Mission — Make creation universal</h3>
+        <p>We remove language walls between imagination and image. Our mission is to empower anyone, anywhere, to create with AI—no English required.</p>
+      </article>
+
+      <article class="card" id="vcard">
+        <h3>Vision — Creative freedom for all</h3>
+        <p>We imagine a world where ideas matter more than fluency. Libretto Pic will be the place millions use to shape a visual future, in every language and dialect.</p>
+      </article>
+    </section>
+
+    <!-- Journey timeline -->
+    <section aria-label="Our journey" style="margin-top:28px;">
+      <h2 style="color:#fff;margin:0 0 12px;">Our Journey</h2>
+      <div class="timeline" id="timeline">
+        <div class="step">
+          <div class="num">1</div>
+          <div class="content">
+            <h4>The Idea</h4>
+            <p>A small team asked: what if anyone could create images in their own words? That spark became our north star.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div class="content">
+            <h4>Prototype</h4>
+            <p>We built experimental models and collected real prompts in many languages to teach the system to understand nuance and tone.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div class="content">
+            <h4>Launch</h4>
+            <p>Early users tested the service and helped shape features for simplicity and clarity — the foundation of our product decisions.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div class="content">
+            <h4>Growth</h4>
+            <p>We focused on accessibility: better UI, faster generation, and quality across languages. Community feedback drove product improvements.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div class="content">
+            <h4>The Future</h4>
+            <p>We aim to expand features, improve localization, and help creators everywhere express ideas in any tongue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta">
+      <a class="btn-cta" href="\Home Page\index.html
+      " role="button" aria-label="Start Creating Now">
+        Start Creating Now
+      </a>
+    </div>
+
+    <footer>
+      &copy; 2025 Libretto Pic — <a href="Privacy Policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="Terms of Service.html"target="_blank" rel="noopener noreferrer" >Terms of Service</a> · <a href="Contact.html"target="_blank" rel="noopener noreferrer" >Contact</a>
+    </footer>
+  </main>
+
+  <!-- Particles lib -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // page load
+    document.addEventListener('DOMContentLoaded', ()=> {
+      document.body.classList.add('loaded');
+
+      // small float animation for illustration shapes
+      document.querySelectorAll('.float-shape').forEach((el,i)=>{
+        const ang = (Math.random()*20)-10;
+        el.style.transform = `translateY(${(i+1)*2}px) rotate(${ang}deg)`;
+        // gentle bob
+        el.animate([
+          { transform: el.style.transform },
+          { transform: `translateY(${(i+1)*8}px) rotate(${ang+6}deg)` },
+          { transform: el.style.transform }
+        ], { duration: 4500 + i*300, iterations: Infinity, easing: 'ease-in-out' });
+      });
+    });
+
+    // particles config
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 55 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.35 },
+        size: { value: 3 },
+        line_linked: { enable: true, distance: 120, color: "#ffffff", opacity: 0.12, width: 1 },
+        move: { enable: true, speed: 0.9, out_mode: "out" }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } }
+      },
+      retina_detect: true
+    });
+
+    // showdown: expandable mission/vision cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', ()=> card.classList.toggle('active'));
+    });
+
+    // timeline reveal using IntersectionObserver (staggered)
+    const steps = document.querySelectorAll('.step');
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          // reveal with stagger
+          let idx = Array.from(steps).indexOf(entry.target);
+          setTimeout(()=> entry.target.classList.add('visible'), idx*140);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    steps.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
