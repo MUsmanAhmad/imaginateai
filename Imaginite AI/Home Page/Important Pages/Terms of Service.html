@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Libretto Pic</title>
+    <style>
+        :root {
+            --primary: #212121;
+            --primary-dark: #161616;
+            --secondary: #8e44ad;
+            --dark: #121212;
+            --light: #bdc3c7;
+            --gray: #7f8c8d;
+            --success: #34c759;
+            --error: #ff3737;
+            --bg: #ffffff;
+            --text: #111111;
+            --content-primary: #ffffff;
+            --content-secondary: #c5c9d9;
+            --accent-purple: #B14BF4;
+            --accent-blue: #6E7BFC;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        body.fade-in {
+            opacity: 1;
+        }
+
+        /* Background */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-dark));
+            background-size: 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        #particles-js {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 20px;
+            color: var(--content-primary);
+        }
+
+        header h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            font-weight: 800;
+        }
+
+        header p {
+            margin-top: 8px;
+            font-size: 16px;
+            color: var(--content-secondary);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Branded Cards */
+        .card {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .card p {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .card.active p {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: var(--content-secondary);
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div id="particles-js"></div>
+
+    <header>
+        <h1>Terms of Service</h1>
+        <p>Welcome to Libretto Pic. Please read these terms carefully.</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>1. Acceptance of Terms</h2>
+            <p>By using Libretto Pic, you agree to follow these Terms of Service. If you don’t agree, please stop using
+                our website.</p>
+        </div>
+
+        <div class="card">
+            <h2>2. Eligibility</h2>
+            <p>You must be at least 13 years old to use our services. By signing up, you confirm you meet this
+                requirement.</p>
+        </div>
+
+        <div class="card">
+            <h2>3. Accounts</h2>
+            <p>Each person is allowed one account only. You are responsible for keeping your account safe and your
+                information accurate.</p>
+        </div>
+
+        <div class="card">
+            <h2>4. Prohibited Uses</h2>
+            <p>You may not use Libretto Pic to create or share harmful, NSFW, illegal, or abusive content. Violating
+                this rule can lead to account suspension.</p>
+        </div>
+
+        <div class="card">
+            <h2>5. Content Ownership</h2>
+            <p>You own the images you generate, but you are fully responsible for how they are used. Libretto Pic is not
+                liable for misuse of generated content.</p>
+        </div>
+
+        <div class="card">
+            <h2>6. Termination</h2>
+            <p>We reserve the right to suspend or delete accounts that break these Terms or misuse our services.</p>
+        </div>
+
+        <div class="card">
+            <h2>7. Limitation of Liability</h2>
+            <p>Libretto Pic provides services “as is.” We are not responsible for damages or losses caused by the use of
+                our platform.</p>
+        </div>
+
+        <div class="card">
+            <h2>8. Governing Law</h2>
+            <p>These terms apply globally. By using Libretto Pic, you agree to follow these general rules regardless of
+                your location.</p>
+        </div>
+
+        <div class="card">
+            <h2>9. Contact Us</h2>
+            <p>If you have questions about these Terms, contact us at <strong>support@librettopic.com</strong></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Libretto Pic. All rights reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Fade-in animation
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("fade-in");
+        });
+
+        // Toggle open/close cards
+        document.querySelectorAll(".card").forEach(card => {
+            card.addEventListener("click", () => {
+                card.classList.toggle("active");
+            });
+        });
+
+        // Particles.js config
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 70 },
+                color: { value: "#ffffff" },
+                opacity: { value: 0.4 },
+                size: { value: 3 },
+                line_linked: { enable: true, color: "#ffffff", opacity: 0.2 },
+                move: { enable: true, speed: 1 }
+            },
+            interactivity: {
+                events: { onhover: { enable: true, mode: "repulse" } }
+            }
+        });
+    </script>
+</body>
+
+</html>
